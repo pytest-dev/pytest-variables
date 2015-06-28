@@ -9,15 +9,19 @@ import pytest
 
 def pytest_addoption(parser):
     group = parser.getgroup('debugconfig')
-    group.addoption('--variables', action='store', metavar='path',
-                    default=None, help='path to test variables JSON file.')
+    group.addoption(
+        '--variables',
+        action='store',
+        default=[],
+        metavar='path',
+        nargs='+',
+        help='path to test variables JSON file.')
 
 
 @pytest.fixture(scope='session')
 def variables(request):
     data = {}
-    path = request.config.getoption('variables')
-    if path is not None:
+    for path in request.config.getoption('variables'):
         with open(path) as f:
-            data = json.load(f)
+            data.update(json.load(f))
     return data

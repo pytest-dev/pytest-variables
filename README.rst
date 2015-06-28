@@ -36,14 +36,22 @@ To install pytest-variables::
 
   pip install pytest-variables
 
-Then run your tests with::
+Specifying variables
+--------------------
 
-  py.test --variables=variables.json
+Use the `--variables` command line option to specify one or more paths to JSON
+files containing your variables::
+
+  py.test --variables foo.json bar.json
+
+If multiple files are specified then they will be applied in the order they
+appear on the command line. When duplicates are encountered, the last
+to be applied will take priority.
 
 Accessing variables
 -------------------
 
-Create a JSON variables file such as:
+With a JSON variables file such as:
 
 .. code-block:: json
 

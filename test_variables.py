@@ -5,9 +5,11 @@
 pytest_plugins = "pytester",
 
 
-def run(testdir, variables='{"foo":"bar"}'):
-    path = testdir.makefile('.json', variables)
-    return testdir.runpytest('--variables', path)
+def run(testdir, variables=['{"foo":"bar"}']):
+    paths = []
+    for i, v in enumerate(variables):
+        paths.append(testdir.makefile('{}.json'.format(i), v))
+    return testdir.runpytest('--variables', *paths)
 
 
 class TestVariables:
@@ -42,3 +44,23 @@ class TestVariables:
         result = run(testdir)
         assert result.ret == 1
         result.stdout.fnmatch_lines(['*KeyError: *'])
+
+    def test_multiple_variables(self, testdir):
+        testdir.makepyfile("""
+            def test(variables):
+                assert variables['foo'] == 'bar'
+                assert variables['bar'] == 'foo'
+        """)
+        result = run(testdir, variables=['{"foo":"bar"}', '{"bar":"foo"}'])
+        assert result.ret == 0
+
+    def test_multiple_variables_override(self, testdir):
+        testdir.makepyfile("""
+            def test(variables):
+                assert variables['foo'] == 'bar'
+                assert variables['bar'] == 'foo'
+        """)
+        result = run(testdir, variables=[
+            '{"foo":"foo", "bar":"foo"}',
+            '{"foo":"bar"}'])
+        assert result.ret == 0
