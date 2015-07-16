@@ -9,7 +9,7 @@ setup(name='pytest-variables',
       url='https://github.com/davehunt/pytest-variables',
       py_modules=['pytest_variables'],
       entry_points={'pytest11': ['variables = pytest_variables']},
-      install_requires=['pytest>=2.3'],
+      install_requires=['pytest>=2.4.2'],
       license='Mozilla Public License 2.0 (MPL 2.0)',
       keywords='py.test pytest json variables',
       classifiers=[
