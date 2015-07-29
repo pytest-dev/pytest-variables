@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='pytest-variables',
-      version='1.1',
+      version='1.2',
       description='pytest plugin for providing variables to tests/fixtures',
       long_description=open('README.rst').read(),
       author='Dave Hunt',
