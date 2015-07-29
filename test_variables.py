@@ -6,10 +6,11 @@ pytest_plugins = "pytester",
 
 
 def run(testdir, variables=['{"foo":"bar"}']):
-    paths = []
+    args = []
     for i, v in enumerate(variables):
-        paths.append(testdir.makefile('{0}.json'.format(i), v))
-    return testdir.runpytest('--variables', *paths)
+        args.append('--variables')
+        args.append(testdir.makefile('{0}.json'.format(i), v))
+    return testdir.runpytest(*args)
 
 
 class TestVariables:

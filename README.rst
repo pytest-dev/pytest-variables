@@ -39,10 +39,10 @@ To install pytest-variables::
 Specifying variables
 --------------------
 
-Use the `--variables` command line option to specify one or more paths to JSON
-files containing your variables::
+Use the `--variables` command line option one or more times to specify paths to
+JSON files containing your variables::
 
-  py.test --variables foo.json bar.json
+  py.test --variables foo.json --variables bar.json
 
 If multiple files are specified then they will be applied in the order they
 appear on the command line. When duplicates are encountered, the last

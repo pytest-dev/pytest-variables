@@ -11,10 +11,9 @@ def pytest_addoption(parser):
     group = parser.getgroup('debugconfig')
     group.addoption(
         '--variables',
-        action='store',
+        action='append',
         default=[],
         metavar='path',
-        nargs='+',
         help='path to test variables JSON file.')
 
 
