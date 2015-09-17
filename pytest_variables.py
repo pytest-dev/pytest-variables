@@ -19,6 +19,7 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope='session')
 def variables(request):
+    """Provide test variables from a JSON file"""
     data = {}
     for path in request.config.getoption('variables'):
         with open(path) as f:
