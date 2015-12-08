@@ -4,8 +4,8 @@
 
 import os.path
 import sys
+import importlib
 
-import json
 import pytest
 
 def pytest_addoption(parser):
@@ -23,22 +23,11 @@ def variables(request):
     """Provide test variables from a JSON file or HJSON/YAML files if installed"""
     data = {}
     for path in request.config.getoption('variables'):
-        extention = os.path.splitext(path)[1]
-        if extention in {".hjson", ".HJSON"}:
-            try:
-                import hjson
-            except ImportError:
-                sys.exit("hjson import error, please make sure hjson is installed")
-            with open(path) as f:
-                data.update(hjson.load(f))
-        elif extention in {".yaml", ".YAML"}:
-            try:
-                import yaml
-            except ImportError:
-                sys.exit("yaml import error, please make sure pyyaml is installed")
-            with open(path) as f:
-                data.update(yaml.load(f))
-        else:
-            with open(path) as f:
-                data.update(json.load(f))
+        extention = os.path.splitext(path)[1].replace(".","").lower()
+        try:
+            mod = importlib.import_module(extention)
+        except ImportError:
+            sys.exit("{0} import error, please make sure that {0} is installed".format(extention))
+        with open(path) as f:
+            data.update(mod.load(f))
     return data
