@@ -2,9 +2,29 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-import json
-
+import os.path
+import sys
 import pytest
+
+
+def default(module, file):
+    return module.load(file)
+
+
+parser_table = {
+    "json": ("json", default),
+    "hjson": ("hjson", default),
+    "yml": ("yaml", default),
+    "yaml": ("yaml", default)}
+
+
+def import_parser(file, import_type, parser_func):
+    try:
+        __import__(import_type)
+        mod = sys.modules[import_type]
+    except ImportError:
+        sys.exit("{0} import error, please make sure that {0} is installed".format(import_type))
+    return parser_func(mod, file)
 
 
 def pytest_addoption(parser):
@@ -14,14 +34,20 @@ def pytest_addoption(parser):
         action='append',
         default=[],
         metavar='path',
-        help='path to test variables JSON file.')
+        help='path to variables file.')
 
 
 @pytest.fixture(scope='session')
 def variables(request):
-    """Provide test variables from a JSON file"""
+    """Provide test variables from a specified file"""
     data = {}
     for path in request.config.getoption('variables'):
+        ext = os.path.splitext(path)[1][1:].lower()
         with open(path) as f:
-            data.update(json.load(f))
+            try:
+                data.update(import_parser(f, *parser_table[ext]))
+            except (TypeError, KeyError):
+                print("Could not find a parser for the file extension '{0}'. Supported extensions are: {1}"
+                      .format(ext, list(parser_table.keys())))
+                data.update(import_parser(f, *parser_table["json"]))
     return data
