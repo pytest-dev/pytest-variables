@@ -6,6 +6,17 @@ import json
 
 import pytest
 
+try:
+    import hjson
+except ImportError:
+    print("hjson import error")
+    pass
+try:
+    import yaml
+except ImportError:
+    print("yaml import error")
+    pass
+
 
 def pytest_addoption(parser):
     group = parser.getgroup('debugconfig')
@@ -19,9 +30,10 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope='session')
 def variables(request):
-    """Provide test variables from a JSON file"""
+    """Provide test variables from a JSON file or HJSON/YAML if extras are installed"""
     data = {}
     for path in request.config.getoption('variables'):
+        print(path)
         with open(path) as f:
             data.update(json.load(f))
     return data

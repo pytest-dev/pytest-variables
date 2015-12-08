@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='pytest-variables',
-      version='1.2',
+      version='1.3',
       description='pytest plugin for providing variables to tests/fixtures',
       long_description=open('README.rst').read(),
       author='Dave Hunt',
@@ -10,6 +10,9 @@ setup(name='pytest-variables',
       py_modules=['pytest_variables'],
       entry_points={'pytest11': ['variables = pytest_variables']},
       install_requires=['pytest>=2.4.2'],
+      extras_require = {
+          'hjson':  ['hjson'],
+          'yaml' :  ['PyYAML']},
       license='Mozilla Public License 2.0 (MPL 2.0)',
       keywords='py.test pytest json variables',
       classifiers=[
@@ -27,4 +30,5 @@ setup(name='pytest-variables',
           'Programming Language :: Python :: 2.7',
           'Programming Language :: Python :: 3.2',
           'Programming Language :: Python :: 3.3',
-          'Programming Language :: Python :: 3.4'])
+          'Programming Language :: Python :: 3.4',
+          'Programming Language :: Python :: 3.5'])
