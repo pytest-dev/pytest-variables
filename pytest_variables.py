@@ -12,11 +12,12 @@ import pytest
 def default(module, file):
     return module.load(file)
 
-parser_table = []
-# file extension name, import name, function 
-parser_table.append(["json",    "json",     default])
-parser_table.append(["hjson",   "hjson",    default])
-parser_table.append(["yaml",    "yaml",     default])
+
+parser_table = {
+    "json"  :   ("json",    default),
+    "hjson" :   ("hjson",   default),
+    "yaml"  :   ("yaml",    default)
+    }
 
 
 def pytest_addoption(parser):
@@ -34,15 +35,12 @@ def variables(request):
     """Provide test variables from a JSON file or HJSON/YAML files if installed"""
     data = {}
     for path in request.config.getoption('variables'):
-        extension = os.path.splitext(path)[1].replace(".","").lower()
-        for row in range(len(parser_table)):
-            if extension in parser_table[row][0]:
-                try:
-                    mod = importlib.import_module(parser_table[row][1])
-                except ImportError:
-                    sys.exit("{0} import error, please make sure that {0} is installed"
-                             .format(parser_table[row][1]))
-                with open(path) as f:
-                    data.update(parser_table[row][2](mod, f))
-                break
+        ext = os.path.splitext(path)[1].replace(".","").lower()
+        try:
+            mod = importlib.import_module(parser_table[ext][0])
+        except ImportError:
+            sys.exit("{0} import error, please make sure that {0} is installed"
+                             .format(parser_table[ext][0]))
+        with open(path) as f:
+            data.update(parser_table[ext][1](mod, f))
     return data
