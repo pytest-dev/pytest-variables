@@ -14,9 +14,9 @@ def default(module, file):
 
 
 parser_table = {
-    "json"  :   ("json",    default),
-    "hjson" :   ("hjson",   default),
-    "yaml"  :   ("yaml",    default)
+    "json":   ("json",    default),
+    "hjson":  ("hjson",   default),
+    "yaml":   ("yaml",    default)
     }
 
 
@@ -40,7 +40,7 @@ def variables(request):
             mod = importlib.import_module(parser_table[ext][0])
         except ImportError:
             sys.exit("{0} import error, please make sure that {0} is installed"
-                             .format(parser_table[ext][0]))
+                     .format(parser_table[ext][0]))
         with open(path) as f:
             data.update(parser_table[ext][1](mod, f))
     return data

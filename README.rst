@@ -26,7 +26,7 @@ Requirements
 
 You will need the following prerequisites in order to use pytest-variables:
 
-- Python 2.6, 2.7, 3.2, 3.3, 3.4 or PyPy
+- Python 2.6, 2.7, 3.2, 3.3, 3.4, 3.5, or PyPy
 - py.test 2.6 or newer
 
 Installation
@@ -35,6 +35,11 @@ Installation
 To install pytest-variables::
 
   pip install pytest-variables
+
+You can also install optional support for `HJSON <http://hjson.org>`_ and `YAML <http://pyyaml.org>`_ files::
+
+  pip install "pytest-variables[hjson]"
+  pip install "pytest-variables[yaml]"
 
 Specifying variables
 --------------------
