@@ -47,7 +47,7 @@ def variables(request):
         with open(path) as f:
             try:
                 data.update(import_parser(f, *parser_table[ext]))
-            except (TypeError, KeyError):
+            except (TypeError, KeyError, ValueError):
                 print("Could not find a parser for the file extension '{0}'. "
                       'Supported extensions are: {1}'.format(
                           ext, ', '.join(sorted(parser_table.keys()))))
