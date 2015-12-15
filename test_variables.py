@@ -23,7 +23,7 @@ class TestVariables:
         result = testdir.runpytest()
         assert result.ret == 0
 
-    def test_variables(self, testdir):
+    def test_variables_basic(self, testdir):
         testdir.makepyfile("""
             def test(variables):
                 assert variables['foo'] == 'bar'

@@ -10,9 +10,9 @@ setup(name='pytest-variables',
       py_modules=['pytest_variables'],
       entry_points={'pytest11': ['variables = pytest_variables']},
       install_requires=['pytest>=2.4.2'],
-      extras_require = {
-          'hjson':  ['hjson'],
-          'yaml' :  ['PyYAML']},
+      extras_require={
+          'hjson': ['hjson'],
+          'yaml': ['PyYAML']},
       license='Mozilla Public License 2.0 (MPL 2.0)',
       keywords='py.test pytest json variables',
       classifiers=[
