@@ -7,24 +7,25 @@ import sys
 import pytest
 
 
-def default(module, file):
-    return module.load(file)
+def default(module, path):
+    return module.load(path)
 
 
 parser_table = {
-    "json": ("json", default),
-    "hjson": ("hjson", default),
-    "yml": ("yaml", default),
-    "yaml": ("yaml", default)}
+    'json': ('json', default),
+    'hjson': ('hjson', default),
+    'yml': ('yaml', default),
+    'yaml': ('yaml', default)}
 
 
-def import_parser(file, import_type, parser_func):
+def import_parser(path, import_type, parser_func):
     try:
         __import__(import_type)
         mod = sys.modules[import_type]
     except ImportError:
-        sys.exit("{0} import error, please make sure that {0} is installed".format(import_type))
-    return parser_func(mod, file)
+        sys.exit('{0} import error, please make sure that {0} is '
+                 'installed'.format(import_type))
+    return parser_func(mod, path)
 
 
 def pytest_addoption(parser):
@@ -47,7 +48,8 @@ def variables(request):
             try:
                 data.update(import_parser(f, *parser_table[ext]))
             except (TypeError, KeyError):
-                print("Could not find a parser for the file extension '{0}'. Supported extensions are: {1}"
-                      .format(ext, list(parser_table.keys())))
-                data.update(import_parser(f, *parser_table["json"]))
+                print("Could not find a parser for the file extension '{0}'. "
+                      'Supported extensions are: {1}'.format(
+                          ext, ', '.join(sorted(parser_table.keys()))))
+                data.update(import_parser(f, *parser_table['json']))
     return data
