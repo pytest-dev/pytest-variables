@@ -5,6 +5,7 @@ env:
   - TOXENV=py32
   - TOXENV=py33
   - TOXENV=py34
+  - TOXENV=py35
   - TOXENV=pypy
   - TOXENV=pypy3
   - TOXENV=flake8
@@ -12,3 +13,9 @@ install:
   - pip install tox
 script:
   - tox
+addons:
+  apt:
+    sources:
+      - deadsnakes
+    packages:
+      - python3.5
