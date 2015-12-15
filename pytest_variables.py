@@ -18,7 +18,7 @@ parser_table = {
     "yaml": ("yaml", default)}
 
 
-def import_parser(import_type, parser_func, file):
+def import_parser(file, import_type, parser_func):
     try:
         __import__(import_type)
         mod = sys.modules[import_type]
@@ -45,9 +45,9 @@ def variables(request):
         ext = os.path.splitext(path)[1][1:].lower()
         with open(path) as f:
             try:
-                data.update(import_parser(*parser_table[ext], f))
+                data.update(import_parser(f, *parser_table[ext]))
             except (TypeError, KeyError):
                 print("Could not find a parser for the file extension '{0}'. Supported extensions are: {1}"
                       .format(ext, list(parser_table.keys())))
-                data.update(import_parser(*parser_table["json"], f))
+                data.update(import_parser(f, *parser_table["json"]))
     return data
