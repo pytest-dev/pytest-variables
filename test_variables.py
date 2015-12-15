@@ -19,6 +19,8 @@ def run(testdir, file_format='json', variables=None):
     args = []
     for i, v in enumerate(variables):
         if file_format == 'hjson':
+            if (3, 0) <= sys.version_info < (3, 3):
+                pytest.skip('hjson oes not support Python < 3.3')
             hjson = pytest.importorskip('hjson')
             v = hjson.dumps(v)
         elif file_format == 'yaml':
