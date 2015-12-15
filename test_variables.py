@@ -1,6 +1,7 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+import sys
 
 pytest_plugins = "pytester",
 
@@ -23,7 +24,7 @@ class TestVariables:
         result = testdir.runpytest()
         assert result.ret == 0
 
-    def test_variables(self, testdir):
+    def test_variables_basic(self, testdir):
         testdir.makepyfile("""
             def test(variables):
                 assert variables['foo'] == 'bar'
@@ -35,7 +36,10 @@ class TestVariables:
         testdir.makepyfile('def test(variables): pass')
         result = run(testdir, 'invalid')
         assert result.ret == 1
-        result.stdout.fnmatch_lines(['*ValueError: *'])
+        if sys.version_info < (3,5,0):
+            result.stdout.fnmatch_lines(['*ValueError: *'])
+        else:
+            result.stdout.fnmatch_lines(['*JSONDecodeError: *'])
 
     def test_key_error(self, testdir):
         testdir.makepyfile("""
