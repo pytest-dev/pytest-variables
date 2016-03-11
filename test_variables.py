@@ -11,7 +11,7 @@ pytest_plugins = "pytester",
 
 def pytest_generate_tests(metafunc):
     if 'file_format' in metafunc.fixturenames:
-        metafunc.parametrize('file_format', ['json', 'hjson', 'yaml'])
+        metafunc.parametrize('file_format', ['', 'json', 'hjson', 'yaml'])
 
 
 def run(testdir, file_format='json', variables=None):
