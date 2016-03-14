@@ -28,7 +28,10 @@ def run(testdir, file_format='json', variables=None):
             import json
             v = json.dumps(v)
         args.append('--variables')
-        args.append(testdir.makefile('{0}.{1}'.format(i, file_format), v))
+        if (file_format):
+            args.append(testdir.makefile('{0}.{1}'.format(i, file_format), v))
+        else:
+            args.append(testdir.makefile('{0}'.format(i), v))
     return testdir.runpytest(*args)
 
 

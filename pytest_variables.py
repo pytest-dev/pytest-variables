@@ -37,20 +37,13 @@ def pytest_addoption(parser):
         metavar='path',
         help='path to variables file.')
 
-def check_empty_extension(ext):
-    """if a file has no extension, it is safe to assume it is a JSON"""
-    if (not ext):
-        return "json"
-    else: 
-        return ext
 
 @pytest.fixture(scope='session')
 def variables(request):
     """Provide test variables from a specified file"""
     data = {}
     for path in request.config.getoption('variables'):
-        ext = os.path.splitext(path)[1][1:].lower()
-        ext = check_empty_extension(ext)
+        ext = os.path.splitext(path)[1][1:].lower() or 'json'
         with open(path) as f:
             try:
                 data.update(import_parser(f, *parser_table[ext]))
