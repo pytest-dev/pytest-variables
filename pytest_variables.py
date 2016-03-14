@@ -43,7 +43,7 @@ def variables(request):
     """Provide test variables from a specified file"""
     data = {}
     for path in request.config.getoption('variables'):
-        ext = os.path.splitext(path)[1][1:].lower()
+        ext = os.path.splitext(path)[1][1:].lower() or 'json'
         with open(path) as f:
             try:
                 data.update(import_parser(f, *parser_table[ext]))
