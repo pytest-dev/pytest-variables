@@ -28,8 +28,21 @@ def run(testdir, file_format='json', variables=None):
             import json
             v = json.dumps(v)
         args.append('--variables')
-        args.append(testdir.makefile('{0}.{1}'.format(i, file_format), v))
+        kwargs = {'{0}'.format(i): v}
+        args.append(testdir.makefile(file_format, **kwargs))
+    args.append('-s')
     return testdir.runpytest(*args)
+
+
+def test_missing_extension(testdir):
+    testdir.makepyfile("""
+        def test(variables):
+            assert variables['foo'] == 'bar'
+    """)
+    result = run(testdir, '')
+    assert result.ret == 0
+    with pytest.raises(Exception):
+        result.stdout.fnmatch_lines(['*Could not find a parser*'])
 
 
 def test_no_variables(testdir):
@@ -48,6 +61,7 @@ def test_unsupported_format(testdir):
     """)
     result = run(testdir, 'invalid')
     assert result.ret == 0
+    result.stdout.fnmatch_lines(['*Could not find a parser*'])
 
 
 def test_variables_basic(testdir, file_format):
