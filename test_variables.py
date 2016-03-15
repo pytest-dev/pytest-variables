@@ -11,7 +11,7 @@ pytest_plugins = "pytester",
 
 def pytest_generate_tests(metafunc):
     if 'file_format' in metafunc.fixturenames:
-        metafunc.parametrize('file_format', ['json', 'hjson', 'yaml'])
+        metafunc.parametrize('file_format', ['', 'json', 'hjson', 'yaml'])
 
 
 def run(testdir, file_format='json', variables=None):
@@ -28,7 +28,10 @@ def run(testdir, file_format='json', variables=None):
             import json
             v = json.dumps(v)
         args.append('--variables')
-        args.append(testdir.makefile('{0}.{1}'.format(i, file_format), v))
+        if (file_format):
+            args.append(testdir.makefile('{0}.{1}'.format(i, file_format), v))
+        else:
+            args.append(testdir.makefile('{0}'.format(i), v))
     return testdir.runpytest(*args)
 
 
@@ -63,7 +66,7 @@ def test_invalid_format(testdir, file_format):
     testdir.makepyfile('def test(variables): pass')
     result = run(testdir, file_format, ['invalid'])
     assert result.ret == 1
-    if sys.version_info < (3, 5, 0):
+    if sys.version_info < (3, 5, 0) or not file_format:
         result.stdout.fnmatch_lines(['*ValueError: *'])
     else:
         result.stdout.fnmatch_lines(['*JSONDecodeError: *'])
