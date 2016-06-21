@@ -6,19 +6,19 @@ variables to tests/fixtures as a dictionary via a file specified on the command
 line.
 
 .. image:: https://img.shields.io/badge/license-MPL%202.0-blue.svg
-   :target: https://github.com/davehunt/pytest-variables/blob/master/LICENSE
+   :target: https://github.com/pytest-dev/pytest-variables/blob/master/LICENSE
    :alt: License
 .. image:: https://img.shields.io/pypi/v/pytest-variables.svg
    :target: https://pypi.python.org/pypi/pytest-variables/
    :alt: PyPI
-.. image:: https://img.shields.io/travis/davehunt/pytest-variables.svg
-   :target: https://travis-ci.org/davehunt/pytest-variables/
+.. image:: https://img.shields.io/travis/pytest-dev/pytest-variables.svg
+   :target: https://travis-ci.org/pytest-dev/pytest-variables/
    :alt: Travis
-.. image:: https://img.shields.io/github/issues-raw/davehunt/pytest-variables.svg
-   :target: https://github.com/davehunt/pytest-variables/issues
+.. image:: https://img.shields.io/github/issues-raw/pytest-dev/pytest-variables.svg
+   :target: https://github.com/pytest-dev/pytest-variables/issues
    :alt: Issues
-.. image:: https://img.shields.io/requires/github/davehunt/pytest-variables.svg
-   :target: https://requires.io/github/davehunt/pytest-variables/requirements/?branch=master
+.. image:: https://img.shields.io/requires/github/pytest-dev/pytest-variables.svg
+   :target: https://requires.io/github/pytest-dev/pytest-variables/requirements/?branch=master
    :alt: Requirements
 
 Requirements
@@ -104,5 +104,5 @@ The contents of the files are made available as a
 Resources
 ---------
 
-- `Issue Tracker <http://github.com/davehunt/pytest-variables/issues>`_
-- `Code <http://github.com/davehunt/pytest-variables/>`_
+- `Issue Tracker <http://github.com/pytest-dev/pytest-variables/issues>`_
+- `Code <http://github.com/pytest-dev/pytest-variables/>`_
