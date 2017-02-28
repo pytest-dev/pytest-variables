@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='pytest-variables',
-      version='1.4',
+      use_scm_version=True,
       description='pytest plugin for providing variables to tests/fixtures',
       long_description=open('README.rst').read(),
       author='Dave Hunt',
@@ -10,6 +10,7 @@ setup(name='pytest-variables',
       packages=['pytest_variables'],
       entry_points={'pytest11': ['variables = pytest_variables.plugin']},
       install_requires=['pytest>=2.4.2'],
+      setup_requires=['setuptools_scm'],
       extras_require={
           'hjson': ['hjson'],
           'yaml': ['PyYAML']},
