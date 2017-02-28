@@ -1,9 +1,8 @@
 pytest-variables
 ================
 
-pytest-variables is a plugin for `py.test <http://pytest.org>`_ that provides
-variables to tests/fixtures as a dictionary via a file specified on the command
-line.
+pytest-variables is a plugin for pytest_ that provides variables to
+tests/fixtures as a dictionary via a file specified on the command line.
 
 .. image:: https://img.shields.io/badge/license-MPL%202.0-blue.svg
    :target: https://github.com/pytest-dev/pytest-variables/blob/master/LICENSE
@@ -27,7 +26,7 @@ Requirements
 You will need the following prerequisites in order to use pytest-variables:
 
 - Python 2.7, 3.6, PyPy, or PyPy3
-- py.test 2.6 or newer
+- pytest 2.6 or newer
 
 Installation
 ------------
@@ -47,8 +46,8 @@ as they require additional dependencies:
 Human JSON
 ~~~~~~~~~~
 
-`Human JSON <http://hjson.org>`_ is a configuration file format that caters to
-humans and helps reduce the errors they make. To install Human JSON support:
+`Human JSON`_ is a configuration file format that caters to humans and helps
+reduce the errors they make. To install Human JSON support:
 
 .. code-block:: bash
 
@@ -57,8 +56,8 @@ humans and helps reduce the errors they make. To install Human JSON support:
 YAML
 ~~~~
 
-`YAML <http://yaml.org>`_ is a human friendly data serialization standard for
-all programming languages. To install YAML support:
+YAML_ is a human friendly data serialization standard for all programming
+languages. To install YAML support:
 
 .. code-block:: bash
 
@@ -72,7 +71,7 @@ files containing your variables:
 
 .. code-block:: bash
 
-  $ py.test --variables foo.json --variables bar.json
+  $ pytest --variables foo.json --variables bar.json
 
 If multiple files are specified then they will be applied in the order they
 appear on the command line. When duplicates are encountered, the last
@@ -91,8 +90,7 @@ With a JSON variables file such as:
   }
 
 Specify the `variables` funcarg to make the variables available to your tests.
-The contents of the files are made available as a
-`dictionary <https://docs.python.org/tutorial/datastructures.html#dictionaries>`_:
+The contents of the files are made available as a dictionary_:
 
 .. code-block:: python
 
@@ -104,5 +102,14 @@ The contents of the files are made available as a
 Resources
 ---------
 
-- `Issue Tracker <http://github.com/pytest-dev/pytest-variables/issues>`_
-- `Code <http://github.com/pytest-dev/pytest-variables/>`_
+- `Release Notes`_
+- `Issue Tracker`_
+- Code_
+
+.. _pytest: http://pytest.org
+.. _Human JSON: http://hjson.org
+.. _YAML: http://yaml.org
+.. _dictionary: https://docs.python.org/tutorial/datastructures.html#dictionaries
+.. _Release Notes:  http://github.com/pytest-dev/pytest-variables/blob/master/CHANGES.rst
+.. _Issue Tracker: http://github.com/pytest-dev/pytest-variables/issues
+.. _Code: http://github.com/pytest-dev/pytest-variables
