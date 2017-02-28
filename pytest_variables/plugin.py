@@ -4,7 +4,10 @@
 
 import os.path
 import sys
+
 import pytest
+
+from pytest_variables import errors
 
 
 def default(module, path):
@@ -38,18 +41,27 @@ def pytest_addoption(parser):
         help='path to variables file.')
 
 
-@pytest.fixture(scope='session')
-def variables(request):
-    """Provide test variables from a specified file"""
-    data = {}
-    for path in request.config.getoption('variables'):
+def pytest_configure(config):
+    config._variables = {}
+    for path in config.getoption('variables'):
         ext = os.path.splitext(path)[1][1:].lower() or 'json'
         with open(path) as f:
             try:
-                data.update(import_parser(f, *parser_table[ext]))
-            except (TypeError, KeyError, ValueError):
+                variables = import_parser(f, *parser_table[ext])
+                print(variables)
+                config._variables.update(variables)
+            except KeyError:
                 print("Could not find a parser for the file extension '{0}'. "
                       'Supported extensions are: {1}'.format(
                           ext, ', '.join(sorted(parser_table.keys()))))
-                data.update(import_parser(f, *parser_table['json']))
-    return data
+                config._variables.update(
+                    import_parser(f, *parser_table['json']))
+            except ValueError as e:
+                raise errors.ValueError('Unable to parse {0}: {1}'.format(
+                    path, e))
+
+
+@pytest.fixture(scope='session')
+def variables(pytestconfig):
+    """Provide test variables from a specified file"""
+    return pytestconfig._variables

@@ -14,17 +14,17 @@ def pytest_generate_tests(metafunc):
         metafunc.parametrize('file_format', ['json', 'hjson', 'yaml'])
 
 
-def run(testdir, file_format='json', variables=None):
+def run(testdir, file_format='json', variables=None, raw=False):
     variables = variables or [{"foo": "bar"}]
     args = []
     for i, v in enumerate(variables):
-        if file_format == 'hjson':
+        if file_format == 'hjson' and not raw:
             hjson = pytest.importorskip('hjson')
             v = hjson.dumps(v)
-        elif file_format == 'yaml':
+        elif file_format == 'yaml' and not raw:
             yaml = pytest.importorskip('yaml')
             v = yaml.dump(v)
-        else:
+        elif not raw:
             import json
             v = json.dumps(v)
         args.append('--variables')
@@ -75,12 +75,9 @@ def test_variables_basic(testdir, file_format):
 
 def test_invalid_format(testdir, file_format):
     testdir.makepyfile('def test(variables): pass')
-    result = run(testdir, file_format, ['invalid'])
-    assert result.ret == 1
-    if sys.version_info < (3, 5, 0):
-        result.stdout.fnmatch_lines(['*ValueError: *'])
-    else:
-        result.stdout.fnmatch_lines(['*JSONDecodeError: *'])
+    result = run(testdir, file_format, ['invalid'], raw=True)
+    assert result.ret == 3
+    result.stderr.fnmatch_lines(['*ValueError: Unable to parse*'])
 
 
 def test_key_error(testdir, file_format):
