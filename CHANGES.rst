@@ -1,7 +1,7 @@
 Release Notes
 -------------
 
-**1.5.0 (2017-02-28)**
+**1.5.0 (2017-03-01)**
 
 * Moved parsing of variables to :code:`pytest_configure` and store as
   :code:`config._variables` so access is not limited to fixtures
