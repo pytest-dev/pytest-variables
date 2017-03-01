@@ -48,7 +48,6 @@ def pytest_configure(config):
         with open(path) as f:
             try:
                 variables = import_parser(f, *parser_table[ext])
-                print(variables)
                 config._variables.update(variables)
             except KeyError:
                 print("Could not find a parser for the file extension '{0}'. "

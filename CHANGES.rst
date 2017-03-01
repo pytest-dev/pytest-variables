@@ -1,6 +1,10 @@
 Release Notes
 -------------
 
+**1.5.1 (2017-03-01)**
+
+* Removed unintentional print of variables
+
 **1.5.0 (2017-03-01)**
 
 * Moved parsing of variables to :code:`pytest_configure` and store as
