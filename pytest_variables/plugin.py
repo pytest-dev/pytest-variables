@@ -45,7 +45,7 @@ def pytest_configure(config):
     config._variables = {}
     for path in config.getoption('variables'):
         ext = os.path.splitext(path)[1][1:].lower() or 'json'
-        with open(path) as f:
+        with open(path, 'rb') as f:
             try:
                 variables = import_parser(f, *parser_table[ext])
                 config._variables.update(variables)
