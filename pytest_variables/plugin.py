@@ -11,7 +11,17 @@ from pytest_variables import errors
 
 
 def default(module, path):
-    return module.load(path)
+    try:
+        with open(path, 'rb') as f:
+            return module.load(f)
+    except TypeError as exc:
+        if exc.args[0] == 'Expected string, got bytes':
+            # NOTE: python3.2 json expects string,
+            # so we should rely on system encoding.
+            # This is fixed in newer versions.
+            with open(path) as f:
+                return module.load(f)
+        raise
 
 
 parser_table = {
@@ -45,19 +55,18 @@ def pytest_configure(config):
     config._variables = {}
     for path in config.getoption('variables'):
         ext = os.path.splitext(path)[1][1:].lower() or 'json'
-        with open(path) as f:
-            try:
-                variables = import_parser(f, *parser_table[ext])
-                config._variables.update(variables)
-            except KeyError:
-                print("Could not find a parser for the file extension '{0}'. "
-                      'Supported extensions are: {1}'.format(
-                          ext, ', '.join(sorted(parser_table.keys()))))
-                config._variables.update(
-                    import_parser(f, *parser_table['json']))
-            except ValueError as e:
-                raise errors.ValueError('Unable to parse {0}: {1}'.format(
-                    path, e))
+        try:
+            variables = import_parser(path, *parser_table[ext])
+            config._variables.update(variables)
+        except KeyError:
+            print("Could not find a parser for the file extension '{0}'. "
+                  'Supported extensions are: {1}'.format(
+                      ext, ', '.join(sorted(parser_table.keys()))))
+            config._variables.update(
+                import_parser(path, *parser_table['json']))
+        except ValueError as e:
+            raise errors.ValueError('Unable to parse {0}: {1}'.format(
+                path, e))
 
 
 @pytest.fixture(scope='session')
