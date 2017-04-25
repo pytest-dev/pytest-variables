@@ -1,6 +1,12 @@
 Release Notes
 -------------
 
+**1.6.0 (2017-04-25)**
+
+* Open file in binary format to address incorrect encoding on Windows
+
+  * Thanks to `@vgavro <https://github.com/vgavro>`_ for the PR
+
 **1.5.1 (2017-03-01)**
 
 * Removed unintentional print of variables
