@@ -1,6 +1,12 @@
 Release Notes
 -------------
 
+**1.6.1 (2017-04-28)**
+
+* Fix :code:`TypeError` when opening variables in Python 3.2-3.5
+
+  * Thanks to `@kottenator <https://github.com/kottenator>`_ for the report
+
 **1.6.0 (2017-04-25)**
 
 * Open file in binary format to address incorrect encoding on Windows
