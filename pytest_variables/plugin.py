@@ -14,7 +14,7 @@ def default(module, path):
     try:
         with open(path, 'rb') as f:
             return module.load(f)
-    except TypeError as exc:
+    except TypeError:
         # NOTE: python 3.2-3.5 json expects string,
         # so we should rely on system encoding.
         # This is fixed in newer versions.
