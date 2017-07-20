@@ -109,3 +109,16 @@ def test_multiple_variables_override(testdir, file_format):
         {'foo': 'foo', 'bar': 'foo'},
         {'foo': 'bar'}])
     assert result.ret == 0
+
+
+def test_multiple_variables_merge_override(testdir, file_format):
+    testdir.makepyfile("""
+        def test(variables):
+            assert variables['capabilities']['browser'] == 'Firefox'
+            assert variables['capabilities']['browser_version'] == '53.0'
+            assert variables['capabilities']['debug'] == 'true'
+    """)
+    result = run(testdir, file_format, variables=[
+        {'capabilities': {'browser': 'Firefox', 'browser_version': '53.0'}},
+        {'capabilities': {'debug': 'true'}}])
+    assert result.ret == 0
