@@ -112,6 +112,7 @@ def test_multiple_variables_override(testdir, file_format):
 
 
 def test_multiple_variables_merge_override(testdir, file_format):
+    """ Dictionaries merge when there are shared keys """
     testdir.makepyfile("""
         def test(variables):
             assert variables['capabilities']['browser'] == 'Firefox'
@@ -121,4 +122,17 @@ def test_multiple_variables_merge_override(testdir, file_format):
     result = run(testdir, file_format, variables=[
         {'capabilities': {'browser': 'Firefox', 'browser_version': '53.0'}},
         {'capabilities': {'debug': 'true'}}])
+    assert result.ret == 0
+
+
+def test_multiple_variables_merge_not_override_lists(testdir, file_format):
+    """ no lists extension, last wins """
+    testdir.makepyfile("""
+        def test(variables):
+            assert variables['list'] == [4, 5]
+            assert variables['foo']['bar'] == 'true'
+    """)
+    result = run(testdir, file_format, variables=[
+        {'list': [1, 2, 3]},
+        {'list': [4, 5], 'foo': {'bar': 'true'}}])
     assert result.ret == 0
