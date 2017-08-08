@@ -1,9 +1,11 @@
 Release Notes
 -------------
 
-**1.7.0 (unreleased)**
+**1.7.0 (2017-08-08)**
 
-* Feature: allow dict variables merge when multiple variable files is provided
+* Merge dictionaries in variables when multiple files are provided.
+
+  * Thanks to `@davidemoro <https://github.com/davidemoro>`_ for the PR
 
 **1.6.1 (2017-04-28)**
 

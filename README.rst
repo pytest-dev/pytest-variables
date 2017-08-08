@@ -112,7 +112,7 @@ you'll get the merged version of your variables:
   }
 
 If multiple files are specified then they will be applied in the order they
-appear on the command line. When duplicates keys with non dictionary_ values
+appear on the command line. When duplicate keys with non dictionary_ values
 are encountered, the last to be applied will take priority.
 
 Accessing variables
