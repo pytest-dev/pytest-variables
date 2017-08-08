@@ -23,6 +23,7 @@ jobs:
           on:
             tags: true
             repo: pytest-dev/pytest-variables
+            all_branches: true
 cache:
   pip: true
 install: pip install tox-travis
