@@ -32,15 +32,14 @@ def run(testdir, file_format='json', variables=None, raw=False):
     return testdir.runpytest(*args)
 
 
-def test_missing_extension(testdir):
+def test_missing_extension(testdir, recwarn):
     testdir.makepyfile("""
         def test(variables):
             assert variables['foo'] == 'bar'
     """)
     result = run(testdir, '')
     assert result.ret == 0
-    with pytest.raises(Exception):
-        result.stdout.fnmatch_lines(['*Could not find a parser*'])
+    assert len(recwarn) == 0
 
 
 def test_no_variables(testdir):
@@ -52,14 +51,17 @@ def test_no_variables(testdir):
     assert result.ret == 0
 
 
-def test_unsupported_format(testdir):
+def test_unsupported_format(testdir, recwarn):
     testdir.makepyfile("""
         def test(variables):
             assert variables['foo'] == 'bar'
     """)
     result = run(testdir, 'invalid')
     assert result.ret == 0
-    result.stdout.fnmatch_lines(['*Could not find a parser*'])
+    assert len(recwarn) == 1
+    w = recwarn.pop(UserWarning)
+    assert issubclass(w.category, UserWarning)
+    assert 'Could not find a parser' in str(w.message)
 
 
 def test_variables_basic(testdir, file_format):

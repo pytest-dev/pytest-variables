@@ -4,6 +4,7 @@
 
 import os.path
 import sys
+import warnings
 
 import pytest
 from functools import reduce
@@ -79,9 +80,10 @@ def pytest_configure(config):
         try:
             variables = import_parser(path, *parser_table[ext])
         except KeyError:
-            print("Could not find a parser for the file extension '{0}'. "
-                  'Supported extensions are: {1}'.format(
-                      ext, ', '.join(sorted(parser_table.keys()))))
+            warnings.warn(UserWarning(
+                "Could not find a parser for the file extension '{0}'. "
+                'Supported extensions are: {1}'.format(
+                    ext, ', '.join(sorted(parser_table.keys())))))
             variables = import_parser(path, *parser_table['json'])
         except ValueError as e:
             raise errors.ValueError('Unable to parse {0}: {1}'.format(
