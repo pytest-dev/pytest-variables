@@ -71,11 +71,49 @@ files containing your variables:
 
 .. code-block:: bash
 
-  $ pytest --variables foo.json --variables bar.json
+  $ pytest --variables firefox-53.json --variables windows-10.json
+
+
+with the following contents for the ``firefox-53.json`` file:
+
+.. code-block:: json
+
+  {
+    "capabilities": {
+      "browser": "Firefox",
+      "browser_version": "53.0"
+    }
+  }
+
+and another file named ``windows-10.json`` with:
+
+.. code-block:: json
+
+  {
+    "capabilities": {
+      "os": "Windows",
+      "os_version": "10",
+      "resolution": "1280x1024"
+    }
+  }
+
+you'll get the merged version of your variables:
+
+.. code-block:: json
+
+  {
+    "capabilities": {
+      "browser": "Firefox",
+      "browser_version": "53.0",
+      "os": "Windows",
+      "os_version": "10",
+      "resolution": "1280x1024"
+    }
+  }
 
 If multiple files are specified then they will be applied in the order they
-appear on the command line. When duplicates are encountered, the last
-to be applied will take priority.
+appear on the command line. When duplicates keys with non dictionary_ values
+are encountered, the last to be applied will take priority.
 
 Accessing variables
 -------------------

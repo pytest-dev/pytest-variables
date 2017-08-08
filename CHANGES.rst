@@ -1,6 +1,10 @@
 Release Notes
 -------------
 
+**1.7.0 (unreleased)**
+
+* Feature: allow dict variables merge when multiple variable files is provided
+
 **1.6.1 (2017-04-28)**
 
 * Fix :code:`TypeError` when opening variables in Python 3.2-3.5
