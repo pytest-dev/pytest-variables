@@ -20,10 +20,9 @@ jobs:
         password:
           secure: MDg7smUBifmQ1HYeL8rMrKQVYdo/VeYuKFmXnVS3PO640PFxwFSF1/0JFFE8t7I6ZrLWl1gSFG20bsL8JYjq++uA5/lOlAvUUqFo+JOulFxY+8zjbdoltoRjA/Fi80RECK7zV7zDPugFER3wcK09Pi1mK6k35Wl+K0KWHLJRAD+EoVB1uSfRpc9JLNsYshXY34/rwFeZ3q9W2pfzKCadPQH6rVZxLnXuBqTz7YusaaG/tK0W5JAMe2FI9SETrF1encZiVUs78uVzBR6QfOvQjeDl1tmqzgexnRNfFDUBSSPgx7Na6cUsnNj07l9rFVEpeJnSh0YI+dyvehLUebUJuxmPe3eyP2YSyKSi8k8UdWFeM9OtNlEOs69mQ7dD7/hZD3Zx3vNCjQ+pK3XbpZCPgvXw7rcxOoIOKLVQ5WR0bNrrBfpQCXfrSBxebl/7dkfCoY5IrEvEPg2bmAYtWsET/RONOGCw2PpFl3x8WvmwO9Rq9v7gOFooGCsBIO0rS/2nURitN86wg/r9acUR2AL3L3f9JWMangxfIKxqlMngI+AFXHsz4/9PdH2trN3NWm8hcF4tcY86gs5EvxR8SPjTYHxTO+r/y6yztVAXTnMG4OJvBRfWZ3UXzjBB0Tx6uOmNcpBI2M5blNg55CPrAHWnNiYkbtBlqYMZJyB3BpiOnOU=
           distributions: sdist bdist_wheel
-          on:
-            tags: true
-            repo: pytest-dev/pytest-variables
-            all_branches: true
+        on:
+          tags: true
+          repo: pytest-dev/pytest-variables
 cache:
   pip: true
 install: pip install tox-travis
