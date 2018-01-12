@@ -5,6 +5,7 @@
 import os.path
 import sys
 import warnings
+import io
 
 import pytest
 from functools import reduce
@@ -13,16 +14,16 @@ from pytest_variables import errors
 
 
 def default(module, path):
-    try:
-        with open(path, 'rb') as f:
-            return module.load(f)
-    except TypeError:
-        # NOTE: python 3.2-3.5 json expects string,
-        # so we should rely on system encoding.
-        # This is fixed in newer versions.
-        with open(path) as f:
-            return module.load(f)
-
+      try:
+ -        with io.open(path, 'r', encoding='utf8') as f:
+ -            return module.load(f)
+ -    except TypeError:
+ -        # NOTE: python 3.2-3.5 json expects string,
+ -        # so we should rely on system encoding.
+ -        # This is fixed in newer versions.
+ -        with open(path) as f:
+ +             return module.load(f)
+  
 
 parser_table = {
     'json': ('json', default),
