@@ -1,6 +1,12 @@
 Release Notes
 -------------
 
+**1.7.1 (2018-01-15)**
+
+* Encode variables as UTF-8.
+
+  * Thanks to `@MuckT <https://github.com/MuckT>`_ for the PR
+
 **1.7.0 (2017-08-08)**
 
 * Merge dictionaries in variables when multiple files are provided.
