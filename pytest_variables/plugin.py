@@ -18,11 +18,16 @@ def default(module, path):
         return module.load(f)
 
 
+def safe_load(module, path):
+    with io.open(path, 'r', encoding='utf8') as f:
+        return module.safe_load(f)
+
+
 parser_table = {
     'json': ('json', default),
     'hjson': ('hjson', default),
-    'yml': ('yaml', default),
-    'yaml': ('yaml', default)}
+    'yml': ('yaml', safe_load),
+    'yaml': ('yaml', safe_load)}
 
 
 def import_parser(path, import_type, parser_func):
