@@ -63,6 +63,13 @@ languages. To install YAML support:
 
   $ pip install pytest-variables[yaml]
 
+Contributing
+------------
+
+We welcome contributions.
+
+To learn more, see `Development <https://github.com/pytest-dev/pytest-variables/blob/master/development.rst>`_
+
 Specifying variables
 --------------------
 

@@ -5,4 +5,5 @@
 
 class ValueError(Exception):
     """pytest-variables usage error."""
+
     pass
