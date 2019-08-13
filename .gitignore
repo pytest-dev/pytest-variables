@@ -2,7 +2,10 @@ __pycache__
 .cache
 .DS_Store
 .tox
+.eggs
+.vscode
 build
 dist
 *.egg-info
 *.pyc
+Pipfile.lock
