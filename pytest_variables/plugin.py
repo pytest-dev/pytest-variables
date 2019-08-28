@@ -13,9 +13,12 @@ from functools import reduce
 from pytest_variables import errors
 
 
-def default(module, path):
+def default(module, path, loader):
     with io.open(path, "r", encoding="utf8") as f:
-        return module.load(f)
+        try:
+            return module.load(f, Loader=getattr(module, loader))
+        except (AttributeError, TypeError):  # Module is not yaml or no loader
+            return module.load(f)
 
 
 parser_table = {
@@ -26,7 +29,7 @@ parser_table = {
 }
 
 
-def import_parser(path, import_type, parser_func):
+def import_parser(path, import_type, parser_func, loader=None):
     try:
         __import__(import_type)
         mod = sys.modules[import_type]
@@ -35,10 +38,15 @@ def import_parser(path, import_type, parser_func):
             "{0} import error, please make sure that {0} is "
             "installed".format(import_type)
         )
-    return parser_func(mod, path)
+    return parser_func(mod, path, loader)
 
 
 def pytest_addoption(parser):
+    parser.addini(
+        "yaml_loader",
+        default="FullLoader",
+        help="Which loader to use when parsing yaml",
+    )
     group = parser.getgroup("debugconfig")
     group.addoption(
         "--variables",
@@ -73,10 +81,12 @@ def _merge(a, b, path=None):
 def pytest_configure(config):
     config._variables = {}
     paths = config.getoption("variables")
+    loader = config.getini("yaml_loader")
     for path in paths:
         ext = os.path.splitext(path)[1][1:].lower() or "json"
         try:
-            variables = import_parser(path, *parser_table[ext])
+            import_type, parser_func = parser_table[ext]
+            variables = import_parser(path, import_type, parser_func, loader)
         except KeyError:
             warnings.warn(
                 UserWarning(
