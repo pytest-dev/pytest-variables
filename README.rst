@@ -63,6 +63,26 @@ languages. To install YAML support:
 
   $ pip install pytest-variables[yaml]
 
+YAML Loader
+^^^^^^^^^^^
+
+You can specify which loader to use by setting ``yaml_loader`` in ``pytest.ini`` (or similar file)
+to one of the following:
+
+  * BaseLoader
+  * SafeLoader
+  * FullLoader (default)
+  * UnsafeLoader
+
+.. code-block:: ini
+
+  [pytest]
+  yaml_loader = BaseLoader
+
+**Note** that loader is case-sensitive.
+
+To learn more about the loader, see `here <https://github.com/yaml/pyyaml/wiki/PyYAML-yaml.load(input)-Deprecation>`_
+
 Contributing
 ------------
 

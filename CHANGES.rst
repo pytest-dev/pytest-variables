@@ -1,6 +1,12 @@
 Release Notes
 -------------
 
+**1.8.0 (unreleased)**
+
+* Handle PyYaml deprecation
+
+  * Thanks to `@jurisbu <https://github.com/jurisbu>`_ for the PR
+
 **1.7.1 (2018-01-15)**
 
 * Encode variables as UTF-8.
