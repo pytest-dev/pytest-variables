@@ -1,7 +1,7 @@
 Release Notes
 -------------
 
-**1.8.0 (unreleased)**
+**1.8.0 (2019-09-12)**
 
 * Handle PyYaml deprecation
 
