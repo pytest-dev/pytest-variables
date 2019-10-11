@@ -26,6 +26,7 @@ parser_table = {
     "hjson": ("hjson", default),
     "yml": ("yaml", default),
     "yaml": ("yaml", default),
+    "toml": ("toml", default),
 }
 
 
