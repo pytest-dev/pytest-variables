@@ -83,6 +83,16 @@ to one of the following:
 
 To learn more about the loader, see `here <https://github.com/yaml/pyyaml/wiki/PyYAML-yaml.load(input)-Deprecation>`_
 
+TOML
+~~~~~~~~~~
+
+`TOML`_ TOML aims to be a minimal configuration file format that's easy to read due to obvious semantics. TOML is designed to map unambiguously to a hash table.
+To install TOML support:
+
+.. code-block:: bash
+
+  $ pip install pytest-variables[toml]
+
 Contributing
 ------------
 
