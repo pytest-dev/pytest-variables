@@ -93,8 +93,6 @@ To install TOML support:
 
   $ pip install pytest-variables[toml]
 
-To learn more about TOML, see the `github repository <https://github.com/toml-lang/toml>`_
-
 Contributing
 ------------
 
@@ -186,6 +184,7 @@ Resources
 .. _pytest: http://pytest.org
 .. _Human JSON: http://hjson.org
 .. _YAML: http://yaml.org
+.. _TOML: https://github.com/toml-lang/toml
 .. _dictionary: https://docs.python.org/tutorial/datastructures.html#dictionaries
 .. _Release Notes:  http://github.com/pytest-dev/pytest-variables/blob/master/CHANGES.rst
 .. _Issue Tracker: http://github.com/pytest-dev/pytest-variables/issues
