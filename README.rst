@@ -86,12 +86,14 @@ To learn more about the loader, see `here <https://github.com/yaml/pyyaml/wiki/P
 TOML
 ~~~~~~~~~~
 
-`TOML`_ TOML aims to be a minimal configuration file format that's easy to read due to obvious semantics. TOML is designed to map unambiguously to a hash table.
+TOML_ aims to be a minimal configuration file format that's easy to read due to obvious semantics. TOML is designed to map unambiguously to a hash table.
 To install TOML support:
 
 .. code-block:: bash
 
   $ pip install pytest-variables[toml]
+
+To learn more about TOML, see the `github repository <https://github.com/toml-lang/toml>`_
 
 Contributing
 ------------
