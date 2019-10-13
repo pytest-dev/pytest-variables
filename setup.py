@@ -12,7 +12,7 @@ setup(
     entry_points={"pytest11": ["variables = pytest_variables.plugin"]},
     install_requires=["pytest>=2.4.2"],
     setup_requires=["setuptools_scm"],
-    extras_require={"hjson": ["hjson"], "yaml": ["PyYAML"]},
+    extras_require={"hjson": ["hjson"], "yaml": ["PyYAML"], "toml": ["toml"]},
     license="Mozilla Public License 2.0 (MPL 2.0)",
     keywords="py.test pytest json variables",
     classifiers=[

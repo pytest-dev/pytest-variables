@@ -9,7 +9,7 @@ pytest_plugins = ("pytester",)
 
 def pytest_generate_tests(metafunc):
     if "file_format" in metafunc.fixturenames:
-        metafunc.parametrize("file_format", ["json", "hjson", "yaml"])
+        metafunc.parametrize("file_format", ["json", "hjson", "yaml", "toml"])
 
 
 def run(testdir, file_format="json", variables=None, raw=False):
@@ -22,6 +22,9 @@ def run(testdir, file_format="json", variables=None, raw=False):
         elif file_format == "yaml" and not raw:
             yaml = pytest.importorskip("yaml")
             v = yaml.dump(v)
+        elif file_format == "toml" and not raw:
+            toml = pytest.importorskip("toml")
+            v = toml.dumps(v)
         elif not raw:
             import json
 
@@ -84,7 +87,7 @@ def test_variables_basic(testdir, file_format):
 
 def test_invalid_format(testdir, file_format):
     testdir.makepyfile("def test(variables): pass")
-    result = run(testdir, file_format, ["invalid"], raw=True)
+    result = run(testdir, file_format, ["invalid="], raw=True)
     assert result.ret == 3
     result.stderr.fnmatch_lines(["*ValueError: Unable to parse*"])
 
