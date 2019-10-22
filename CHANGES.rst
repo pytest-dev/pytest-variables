@@ -1,6 +1,12 @@
 Release Notes
 -------------
 
+**1.9.0 (2019-10-22)**
+
+* Add TOML support
+
+  * Thanks to `@mraspberry <https://github.com/mraspberry>`_ for the PR
+
 **1.8.0 (2019-09-12)**
 
 * Handle PyYaml deprecation
