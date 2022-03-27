@@ -1,6 +1,13 @@
 Release Notes
 -------------
 
+
+**2.0.0 (2022-03-27)**
+
+* Drop python 2.7 and 3.6 support
+
+* Switch to pyproject.toml and Poetry
+
 **1.9.0 (2019-10-23)**
 
 * Add TOML support
