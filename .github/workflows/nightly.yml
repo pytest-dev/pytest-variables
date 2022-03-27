@@ -6,4 +6,5 @@ on:
 
 jobs:
   tests:
+    if: github.repository_owner == 'pytest-dev'
     uses: ./.github/workflows/test.yml
