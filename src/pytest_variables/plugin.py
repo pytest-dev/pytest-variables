@@ -59,8 +59,8 @@ def pytest_addoption(parser):
 
 
 def _merge(a, b, path=None):
-    """ merges b and a configurations.
-        Based on http://bit.ly/2uFUHgb
+    """merges b and a configurations.
+    Based on http://bit.ly/2uFUHgb
     """
     if path is None:
         path = []

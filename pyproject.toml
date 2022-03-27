@@ -1,0 +1,63 @@
+[build-system]
+ requires = ["poetry-core>=1.0.0"]
+ build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "pytest-variables"
+version = "1.9.0rc0"
+description = "pytest plugin for providing variables to tests/fixtures"
+license = "MPL-2.0"
+authors = [
+    "Dave Hunt <dhunt@mozilla.com>",
+    "Jim Brännlund <jimbrannlund@fastmail.com>"
+]
+readme = "README.rst"
+homepage = "https://github.com/pytest-dev/pytest-variables"
+repository = "https://github.com/pytest-dev/pytest-variables"
+keywords = [
+    "pytest",
+    "json",
+    "variables"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Framework :: Pytest",
+    "Intended Audience :: Developers",
+    "Operating System :: POSIX",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: MacOS :: MacOS X",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Utilities",
+]
+packages = [
+    { include = "pytest_variables", from = "src" },
+]
+include = [
+    "test_variables.py",
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+pytest = ">=3.0.0,<8.0.0"
+
+hjson = { version = "*", optional = true }
+PyYAML = { version = "*", optional = true }
+toml = { version = "*", optional = true }
+
+[tool.poetry.extras]
+hjson = ["hjson"]
+yaml = ["PyYAML"]
+toml = ["toml"]
+
+[tool.poetry.dev-dependencies]
+black = "^22.1.0"
+flake8 = "^4.0.1"
+tox = "^3.24.5"
+pre-commit = "^2.17.0"
+
+[tool.poetry.plugins.pytest11]
+variables = 'pytest_variables.plugin'
+
+[tool.black]
+target-version = ['py37']

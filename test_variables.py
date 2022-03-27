@@ -131,7 +131,7 @@ def test_multiple_variables_override(testdir, file_format):
 
 
 def test_multiple_variables_merge_override(testdir, file_format):
-    """ Dictionaries merge when there are shared keys """
+    """Dictionaries merge when there are shared keys"""
     testdir.makepyfile(
         """
         def test(variables):
@@ -152,7 +152,7 @@ def test_multiple_variables_merge_override(testdir, file_format):
 
 
 def test_multiple_variables_merge_not_override_lists(testdir, file_format):
-    """ no lists extension, last wins """
+    """no lists extension, last wins"""
     testdir.makepyfile(
         """
         def test(variables):
