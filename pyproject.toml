@@ -4,7 +4,7 @@
 
 [tool.poetry]
 name = "pytest-variables"
-version = "1.9.0rc0"
+version = "2.0.0"
 description = "pytest plugin for providing variables to tests/fixtures"
 license = "MPL-2.0"
 authors = [
