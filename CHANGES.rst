@@ -1,7 +1,7 @@
 Release Notes
 -------------
 
-**3.0.0 (unreleased)**
+**3.0.0 (2023-05-27)**
 
 * Use `pytest.stash` internally instead of `_variables`
 
