@@ -1,7 +1,7 @@
 Development
 ===========
 
-To contribute to `pytest-variables` you can use `Poetry <https://python-poetry.org/>`_ to manage
+To contribute to `pytest-variables` you can use `Hatch <https://hatch.pypa.io/latest/>`_ to manage
 a python virtual environment and `pre-commit <https://pre-commit.com/>`_ to help you with
 styling and formatting.
 
@@ -9,10 +9,9 @@ To setup the virtual environment and pre-commit, run:
 
 .. code-block:: bash
 
-  $ poetry install
-  $ poetry run pre-commit install
+  $ hatch -e test run pre-commit install
 
-If you're not using ``Poetry``, to install ``pre-commit``, run:
+If you're not using ``Hatch``, to install ``pre-commit``, run:
 
 .. code-block:: bash
 
@@ -30,14 +29,14 @@ Running Tests
 -------------
 
 You will need `Tox <https://tox.wiki/en/latest/>`_ installed to run the tests
-against the supported Python versions. If you're using ``Poetry`` it will be
+against the supported Python versions. If you're using ``Hatch`` it will be
 installed for you.
 
-With ``Poetry``, run:
+With ``Hatch``, run:
 
 .. code-block:: bash
 
-  $ poetry run tox
+  $ hatch -e test run tox
 
 Otherwise, to install and run, do:
 
@@ -57,6 +56,6 @@ Follow these steps to release a new version of the project:
 #. Commit and push the new branch and then create a new pull request
 #. Wait for tests and reviews and then merge the branch
 #. Once merged, update your local master again (``git pull --rebase upstream master``)
-#. Tag the release with the new release version (``git tag v<new tag>``)
+#. Tag the release with the new release version (``git tag <new tag>``)
 #. Push the tag (``git push upstream --tags``)
 #. Done.

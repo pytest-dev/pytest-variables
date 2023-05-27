@@ -1,6 +1,9 @@
 Release Notes
 -------------
 
+**2.1.0 (unreleased)**
+
+* Switch to Hatch
 
 **2.0.0 (2022-03-27)**
 
