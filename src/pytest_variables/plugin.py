@@ -21,6 +21,8 @@ def default(module, path, loader):
             return module.load(f)
 
 
+variables_key = pytest.StashKey[dict]()
+
 parser_table = {
     "json": ("json", default),
     "hjson": ("hjson", default),
@@ -80,7 +82,7 @@ def _merge(a, b, path=None):
 
 
 def pytest_configure(config):
-    config._variables = {}
+    config.stash[variables_key] = {}
     paths = config.getoption("variables")
     loader = config.getini("yaml_loader")
     for path in paths:
@@ -104,10 +106,10 @@ def pytest_configure(config):
         if not isinstance(variables, dict):
             raise errors.ValueError("Unable to parse {0}".format(path))
 
-        reduce(_merge, [config._variables, variables])
+        reduce(_merge, [config.stash[variables_key], variables])
 
 
 @pytest.fixture(scope="session")
 def variables(pytestconfig):
     """Provide test variables from a specified file"""
-    return pytestconfig._variables
+    return pytestconfig.stash[variables_key]
