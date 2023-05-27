@@ -1,7 +1,9 @@
 Release Notes
 -------------
 
-**2.1.0 (unreleased)**
+**3.0.0 (unreleased)**
+
+* Use `pytest.stash` internally instead of `_variables`
 
 * Switch to Hatch
 
