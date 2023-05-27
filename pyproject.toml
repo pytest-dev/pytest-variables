@@ -1,63 +1,83 @@
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry]
-name = "pytest-variables"
-version = "2.0.0"
-description = "pytest plugin for providing variables to tests/fixtures"
-license = "MPL-2.0"
-authors = [
-    "Dave Hunt <dhunt@mozilla.com>",
-    "Jim Brännlund <jimbrannlund@fastmail.com>"
+build-backend = "hatchling.build"
+requires = [
+  "hatch-vcs>=0.3",
+  "hatchling>=1.13",
 ]
+
+[project]
+name = "pytest-variables"
+description = "pytest plugin for providing variables to tests/fixtures"
 readme = "README.rst"
-homepage = "https://github.com/pytest-dev/pytest-variables"
-repository = "https://github.com/pytest-dev/pytest-variables"
+license = "MPL-2.0"
+requires-python = ">=3.7"
 keywords = [
     "pytest",
     "json",
     "variables"
 ]
+authors = [
+  { name = "Dave Hunt", email =  "dhunt@mozilla.com" },
+  { name = "Jim Brannlund", email = "jimbrannlund@fastmail.com" },
+]
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
-    "Framework :: Pytest",
-    "Intended Audience :: Developers",
-    "Operating System :: POSIX",
-    "Operating System :: Microsoft :: Windows",
-    "Operating System :: MacOS :: MacOS X",
-    "Topic :: Software Development :: Quality Assurance",
-    "Topic :: Software Development :: Testing",
-    "Topic :: Utilities",
+  "Development Status :: 5 - Production/Stable",
+  "Framework :: Pytest",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: English",
+  "Operating System :: POSIX",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: MacOS :: MacOS X",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+  "Topic :: Software Development :: Quality Assurance",
+  "Topic :: Software Development :: Testing",
+  "Topic :: Utilities",
 ]
-packages = [
-    { include = "pytest_variables", from = "src" },
+dependencies = [
+  "pytest>=7.0.0",
 ]
-include = [
-    "test_variables.py",
+dynamic = [
+  "version",
 ]
 
-[tool.poetry.dependencies]
-python = "^3.7"
-pytest = ">=3.0.0,<8.0.0"
+[project.optional-dependencies]
+hjson = [ "hjson" ]
+yaml = [ "PyYAML" ]
+toml = [ "toml" ]
+test = [
+  "black>=22.1.0",
+  "flake8>=4.0.1",
+  "pre-commit>=2.17.0",
+  "tox>=3.24.5",
+]
 
-hjson = { version = "*", optional = true }
-PyYAML = { version = "*", optional = true }
-toml = { version = "*", optional = true }
+[project.urls]
+Homepage = "https://github.com/pytest-dev/pytest-variables"
+Tracker = "https://github.com/pytest-dev/pytest-variables/issues"
+Source = "https://github.com/pytest-dev/pytest-variables"
 
-[tool.poetry.extras]
-hjson = ["hjson"]
-yaml = ["PyYAML"]
-toml = ["toml"]
-
-[tool.poetry.dev-dependencies]
-black = "^22.1.0"
-flake8 = "^4.0.1"
-tox = "^3.24.5"
-pre-commit = "^2.17.0"
-
-[tool.poetry.plugins.pytest11]
+[project.entry-points.pytest11]
 variables = 'pytest_variables.plugin'
 
-[tool.black]
-target-version = ['py37']
+[tool.hatch.envs.test]
+features = [
+  "test",
+]
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+  "/.github",
+]
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/pytest_variables/__version.py"
