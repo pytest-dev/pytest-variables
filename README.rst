@@ -181,7 +181,7 @@ Resources
 - Code_
 
 .. _pytest: http://pytest.org
-.. _Human JSON: http://hjson.org
+.. _Human JSON: https://hjson.github.io
 .. _YAML: http://yaml.org
 .. _TOML: https://github.com/toml-lang/toml
 .. _dictionary: https://docs.python.org/tutorial/datastructures.html#dictionaries
