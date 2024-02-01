@@ -25,7 +25,7 @@ Requirements
 
 You will need the following prerequisites in order to use pytest-variables:
 
-- Python 3.7+ or PyPy3
+- Python 3.8+ or PyPy3
 
 Installation
 ------------
