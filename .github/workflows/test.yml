@@ -16,25 +16,20 @@ concurrency:
 
 jobs:
   test:
-    name: ${{ matrix.python-version }}
+    name: ${{ matrix.tox-env }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10"]
-        include:
-          - python-version: pypy3.9
-            tox-env: py3.9
-          - python-version: 3.11-dev
-            tox-env: devel
+        tox-env: ["3.8", "3.9", "3.10", "3.11", "3.12", "pypy3.10", "devel"]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: ${{ matrix.tox-env == 'devel' && 3.12 || matrix.tox-env }} # default is for devel
 
       - name: Install tox
         run: |
@@ -42,17 +37,12 @@ jobs:
           pip install tox
 
       - name: Cache tox environments
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: .tox
-          key: tox-ubuntu-latest-${{ matrix.python-version }}-${{ hashFiles('pyproject.toml') }}
+          key: ubuntu-latest-tox-${{ matrix.tox-env }}-${{ hashFiles('pyproject.toml', 'tox.ini') }}
           restore-keys: |
-            tox-ubuntu-latest-${{ matrix.python-version }}-
+            ubuntu-latest-tox-${{ matrix.tox-env }}-
 
       - name: Run tests
-        if: ${{ ! matrix.tox-env }}
-        run: tox -e py${{ matrix.python-version }}
-
-      - name: Run tests
-        if: ${{ matrix.tox-env }}
         run: tox -e ${{ matrix.tox-env }}
