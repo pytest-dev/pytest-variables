@@ -180,11 +180,11 @@ Resources
 - `Issue Tracker`_
 - Code_
 
-.. _pytest: http://pytest.org
+.. _pytest: https://docs.pytest.org/en/8.0.x/
 .. _Human JSON: https://hjson.github.io
-.. _YAML: http://yaml.org
+.. _YAML: https://yaml.org
 .. _TOML: https://github.com/toml-lang/toml
 .. _dictionary: https://docs.python.org/tutorial/datastructures.html#dictionaries
-.. _Release Notes:  http://github.com/pytest-dev/pytest-variables/blob/master/CHANGES.rst
-.. _Issue Tracker: http://github.com/pytest-dev/pytest-variables/issues
-.. _Code: http://github.com/pytest-dev/pytest-variables
+.. _Release Notes:  https://github.com/pytest-dev/pytest-variables/blob/master/CHANGES.rst
+.. _Issue Tracker: https://github.com/pytest-dev/pytest-variables/issues
+.. _Code: https://github.com/pytest-dev/pytest-variables
