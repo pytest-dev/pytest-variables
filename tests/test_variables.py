@@ -37,35 +37,29 @@ def run(testdir, file_format="json", variables=None, raw=False):
 
 
 def test_missing_extension(testdir, recwarn):
-    testdir.makepyfile(
-        """
+    testdir.makepyfile("""
         def test(variables):
             assert variables['foo'] == 'bar'
-    """
-    )
+    """)
     result = run(testdir, "")
     assert result.ret == 0
     assert len(recwarn) == 0
 
 
 def test_no_variables(testdir):
-    testdir.makepyfile(
-        """
+    testdir.makepyfile("""
         def test(variables):
             assert variables == {}
-    """
-    )
+    """)
     result = testdir.runpytest()
     assert result.ret == 0
 
 
 def test_unsupported_format(testdir, recwarn):
-    testdir.makepyfile(
-        """
+    testdir.makepyfile("""
         def test(variables):
             assert variables['foo'] == 'bar'
-    """
-    )
+    """)
     result = run(testdir, "invalid")
     assert result.ret == 0
     assert len(recwarn) == 1
@@ -75,12 +69,10 @@ def test_unsupported_format(testdir, recwarn):
 
 
 def test_variables_basic(testdir, file_format):
-    testdir.makepyfile(
-        """
+    testdir.makepyfile("""
         def test(variables):
             assert variables['foo'] == 'bar'
-    """
-    )
+    """)
     result = run(testdir, file_format)
     assert result.ret == 0
 
@@ -93,37 +85,31 @@ def test_invalid_format(testdir, file_format):
 
 
 def test_key_error(testdir, file_format):
-    testdir.makepyfile(
-        """
+    testdir.makepyfile("""
         def test(variables):
             assert variables['bar'] == 'foo'
-    """
-    )
+    """)
     result = run(testdir, file_format)
     assert result.ret == 1
     result.stdout.fnmatch_lines(["*KeyError: *"])
 
 
 def test_multiple_variables(testdir, file_format):
-    testdir.makepyfile(
-        """
+    testdir.makepyfile("""
         def test(variables):
             assert variables['foo'] == 'bar'
             assert variables['bar'] == 'foo'
-    """
-    )
+    """)
     result = run(testdir, file_format, variables=[{"foo": "bar"}, {"bar": "foo"}])
     assert result.ret == 0
 
 
 def test_multiple_variables_override(testdir, file_format):
-    testdir.makepyfile(
-        """
+    testdir.makepyfile("""
         def test(variables):
             assert variables['foo'] == 'bar'
             assert variables['bar'] == 'foo'
-    """
-    )
+    """)
     result = run(
         testdir, file_format, variables=[{"foo": "foo", "bar": "foo"}, {"foo": "bar"}]
     )
@@ -132,14 +118,12 @@ def test_multiple_variables_override(testdir, file_format):
 
 def test_multiple_variables_merge_override(testdir, file_format):
     """Dictionaries merge when there are shared keys"""
-    testdir.makepyfile(
-        """
+    testdir.makepyfile("""
         def test(variables):
             assert variables['capabilities']['browser'] == 'Firefox'
             assert variables['capabilities']['browser_version'] == '53.0'
             assert variables['capabilities']['debug'] == 'true'
-    """
-    )
+    """)
     result = run(
         testdir,
         file_format,
@@ -153,13 +137,11 @@ def test_multiple_variables_merge_override(testdir, file_format):
 
 def test_multiple_variables_merge_not_override_lists(testdir, file_format):
     """no lists extension, last wins"""
-    testdir.makepyfile(
-        """
+    testdir.makepyfile("""
         def test(variables):
             assert variables['list'] == [4, 5]
             assert variables['foo']['bar'] == 'true'
-    """
-    )
+    """)
     result = run(
         testdir,
         file_format,
