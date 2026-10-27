@@ -148,3 +148,21 @@ def test_multiple_variables_merge_not_override_lists(testdir, file_format):
         variables=[{"list": [1, 2, 3]}, {"list": [4, 5], "foo": {"bar": "true"}}],
     )
     assert result.ret == 0
+
+
+@pytest.mark.parametrize(
+    "first,last", [(True, 1), (1, True), (1, 1.0), (False, 0), (0, 0.0), ([1], [True])]
+)
+def test_last_variable_file_preserves_equal_value_type(testdir, first, last):
+    testdir.makepyfile("""
+        def test(variables):
+            expected = %r
+            actual = variables['nested']['value']
+            assert type(actual) is type(expected)
+            if isinstance(expected, list):
+                assert type(actual[0]) is type(expected[0])
+    """ % last)
+    result = run(
+        testdir, variables=[{"nested": {"value": first}}, {"nested": {"value": last}}]
+    )
+    result.assert_outcomes(passed=1)

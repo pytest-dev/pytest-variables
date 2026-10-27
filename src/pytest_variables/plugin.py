@@ -71,8 +71,6 @@ def _merge(a, b, path=None):
         if key in a:
             if isinstance(a[key], dict) and isinstance(b[key], dict):
                 _merge(a[key], b[key], path + [str(key)])
-            elif a[key] == b[key]:
-                pass  # same leaf value
             else:
                 # b wins
                 a[key] = b[key]
