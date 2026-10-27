@@ -148,3 +148,28 @@ def test_multiple_variables_merge_not_override_lists(testdir, file_format):
         variables=[{"list": [1, 2, 3]}, {"list": [4, 5], "foo": {"bar": "true"}}],
     )
     assert result.ret == 0
+
+
+@pytest.mark.parametrize(
+    "encoding",
+    [
+        "utf-8-sig",
+        "utf-16",
+        "utf-16-le",
+        "utf-16-be",
+        "utf-32",
+        "utf-32-le",
+        "utf-32-be",
+    ],
+)
+def test_json_variable_file_encodings(testdir, encoding):
+    import json
+
+    value = "caf\u00e9 \u09ac\u09be\u0982\u09b2\u09be"
+    path = testdir.tmpdir.join("variables.json")
+    path.write_binary(json.dumps({"value": value}, ensure_ascii=False).encode(encoding))
+    testdir.makepyfile(
+        "def test(variables):\n    assert variables['value'] == %r" % value
+    )
+    result = testdir.runpytest("--variables", str(path))
+    result.assert_outcomes(passed=1)

@@ -14,6 +14,9 @@ from pytest_variables import errors
 
 
 def default(module, path, loader):
+    if module.__name__ == "json":
+        with io.open(path, "rb") as f:
+            return module.load(f)
     with io.open(path, "r", encoding="utf8") as f:
         try:
             return module.load(f, Loader=getattr(module, loader))
